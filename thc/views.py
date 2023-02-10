@@ -1,15 +1,22 @@
 from django.shortcuts import render
 
-from .models import Workplan,Partner
+from .models import Workplan,Partner,WorkplanUpdated
 from django.shortcuts import render, get_object_or_404
 from django.http import FileResponse
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
-def home(request):
-
-    return render(request,'home.html',{})
+class home(LoginRequiredMixin, ListView):
+    model = Workplan
+    template_name='home.html'
+    context_object_name = 'workplans'
+    
 
 def workplan(request):
-    workplans = Workplan.objects.all()
+    workplans = WorkplanUpdated.objects.all()
     return render(request, 'workplan.html', {'workplans': workplans})
 def view_pdf(request, pk):
     workplan = get_object_or_404(Workplan, pk=pk)
@@ -40,3 +47,10 @@ def add_activity(request):
 def partners(request):
     all_partners=Partner.objects.all()
     return render(request,'partners.html',{'all_partners':all_partners})
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('home')

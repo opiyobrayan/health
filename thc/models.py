@@ -21,5 +21,12 @@ class Partner(models.Model):
     def __str__(self):
 
         return self.name
+class WorkplanUpdated(models.Model):
+    activity_name=models.CharField('Activity Name',max_length=200,null=True,blank=True)
+    responsible=models.CharField('Responsible',max_length=300,null=True,blank=True)
+    implimentation=models.CharField('implimentation',max_length=300, null=True,blank=True)
 
+    def __str__(self):
+        return self.activity_name
+    
     

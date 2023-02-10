@@ -25,17 +25,19 @@
           <table class="table table-success table-striped">
             <thead>
                 <tr>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Owner</th>
+                  <th scope="col">Activity Name</th>
+                  <th scope="col">Organization Responsible</th>
+                  <th scope="col">Implementation Period</th>
+                  <th scope="col">Status</th>
                   
                 </tr>
             </thead>
             <tbody>
               {% for workplan in workplans %}
                 <tr>
-                  <td>{{ workplan.name }}</td>
-                  <td>{{ workplan.owner }}</td>
-                  <td><a href="{{ workplan.pdf.url }}" style="color:blue;">Download</a></td>
+                  <td>{{ workplan.activity_name}}</td>
+                  <td>{{ workplan.responsible}}</td>
+                  <td>{{ workplan.implimentation}}</td>
                 
                 </tr>
               {% endfor %}
